@@ -10,6 +10,9 @@ import java.util.HashMap;
 
 public class ProductModel {
 
+    public static HashMap<String, Object> product = new HashMap<>();
+    public static HashMap<String, HashMap<String, Object>> products = new HashMap<>();
+
 
     /**
      * Main model method to get a product's details from the store and return it.
@@ -21,45 +24,19 @@ public class ProductModel {
 
         // Define variables
         HashMap<String, Object> product = new HashMap<>();
-        String description = "";
-        Double price = 0.00;
-        Integer qty = 0;
+        String  description = "";
+        Double  price = 0.00;
+        Integer store_qty = 0;
+        String  deal_text = "";
+        Integer deal_qty_qualifier  = 0;
+        Integer deal_price_discount = 0;
+        Integer deal_perc_discount  = 0;
         Integer uom = 0;
 
-
-        // Test products
-        switch (barcode) {
-
-            // Define a test product
-            case "501326541562":
-                description = "Coca-Cola 24x330ml";
-                uom = 24;
-                price = 13.99;
-                qty = 5;
-                break;
-
-            // Define a test product
-            case "8516416153":
-                description = "Fairy Professional 140 Wash Liquid";
-                uom = 2;
-                price = 24.59;
-                qty = 29;
-                break;
-
-            // Define a test product
-            case "9841521631155":
-                description = "Faustino VII Rioja Red Wine 75cl";
-                uom = 1;
-                price = 6.99;
-                qty = 1;
-                break;
+        // Find product in model
+        if (ProductModel.products.containsKey(barcode)) {
+            product = ProductModel.products.get(barcode);
         }
-
-        // Add product to hashmap
-        product.put("description", description);
-        product.put("price", price);
-        product.put("qty", qty);
-        product.put("uom", uom);
 
         // Return product
         return product;

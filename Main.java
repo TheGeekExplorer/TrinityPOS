@@ -9,7 +9,6 @@ public class Main {
         System.out.println("Starting TrinityPOS!");
 
         // Run main program screen
-        MainController c = new MainController();
-        c.show();
+        MainController.show();
     }
 }

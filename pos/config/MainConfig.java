@@ -16,23 +16,34 @@ public class MainConfig {
 
     // Totals
     public static int totalsWidth = 380;
-    public static int totalsHeight = 200;
+    public static int totalsHeight = 120;
     public static int totalsX = 1530;
     public static int totalsY = 10;
     public static String totalsFontName = "Arial";
-    public static int totalsFontSize = 120;
+    public static int totalsFontSize = 100;
 
     // Totals Breakdown
     public static int totalsBreakdownWidth = 380;
     public static int totalsBreakdownHeight = 400;
     public static int totalsBreakdownX = 1530;
     public static int totalsBreakdownY = 560;
-    public static String totalsBreakdownFontName = "Arial";
+    public static String totalsBreakdownFontName = "Courier New";
     public static int totalsBreakdownFontSize = 13;
+
+    // Totals Log
+    public static int productLogWidth = 1510;
+    public static int productLogHeight = 950;
+    public static int productLogX = 10;
+    public static int productLogY = 10;
+    public static String productLogFontName = "Courier New";
+    public static int productLogFontSize = 20;
 
     // Keypad - Generic Key / Default
     public static int keypadKeyWidth = 70;
     public static int keypadKeyHeight = 70;
+    public static String keypadFontName = "Arial";
+    public static int keypadFontSize = 32;
+    public static int keypadFontSizeSmaller = 20;
 
     // Key "7"
     public static String keypad7label = "7";

@@ -11,12 +11,16 @@ import java.util.HashMap;
 
 public class ScannerService {
 
+    public static String inBarcode = "";
+
+
     /**
      * Scan a barcode
      * @param barcode
      */
-    public void scanBarcode (String barcode) {
+    public static void scanBarcode (String barcode) {
 
-
+        ///// SERVICE & MODEL WORK /////
+        RegisterService.addProduct(barcode, 1);
     }
 }

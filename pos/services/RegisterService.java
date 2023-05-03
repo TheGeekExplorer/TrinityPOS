@@ -1,15 +1,20 @@
 package pos.services;
 
+import pos.config.*;
+import pos.controllers.*;
 import pos.models.*;
+import pos.views.*;
+import pos.services.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 
 public class RegisterService {
 
-    public static Double total;
-    public static int qty;
-    public static HashMap<String, HashMap<String, ?>> order = new HashMap<>();
-    public static HashMap<String, Integer> orderLog = new HashMap<>();
+    public static Double total = 0.00;
+    public static int qty = 0;
+    public static HashMap<String, HashMap<String, Object>> order = new HashMap<>();
+    public static ArrayList<String> orderLog = new ArrayList<String>();
 
 
     /**
@@ -24,20 +29,31 @@ public class RegisterService {
         HashMap<String, Object> product = new HashMap<>();
 
         // Get the product's details from the store
-        ProductModel myProduct = new ProductModel();
-        product = myProduct.get(barcode);
+        product = RegisterService.getProductDetails(barcode);
 
-        // Increase the order qty
-        //HashMap<String, ?> tmpProd = order.get(barcode);
-        //Integer orderQty = (Integer) tmpProd.get("order_qty");
-        //orderQty++;
-        //tmpProd.remove("order_qty");
-        //tmpProd.put("order_qty", orderQty);
-        //order.remove(barcode);
-        //order.put(barcode, tmpProd);
+        if (order.containsKey(barcode)) {
+            product = order.get(barcode);
 
-        // Add to order
-        order.put(barcode, product);
+            // Increase the order qty
+            Integer inQTY = Integer.parseInt(product.get("qty").toString());
+            inQTY++;
+            product.replace("qty", inQTY);
+            order.replace(barcode, product);
+
+        } else {
+
+            // Add qty to product object
+            product.put("qty", qty);
+            order.put(barcode, product);
+        }
+
+        // Add to Register
+        System.out.println("ORDER: " + order.get(barcode).get("qty"));
+        System.out.println("MODEL: " + ProductModel.products.get(barcode).get("qty"));
+        System.out.println("...");
+
+        // Update lists, totals, etc in the View
+        MainView.updateView();
 
         return true;
     }
@@ -52,15 +68,24 @@ public class RegisterService {
 
         // Define product object
         HashMap<String, Object> product = new HashMap<>();
+        Object properties;
 
         // Get the product's details from the store
         ProductModel myProduct = new ProductModel();
         product = myProduct.get(barcode);
 
+        String tmpDescription = product.get("description").toString();
+        String tmpCase        = product.get("case").toString();
+        String tmpUOM         = product.get("uom").toString();
+        //String tmpStoreQty    = product.get("store_qty").toString();
+        String tmpPrice       = product.get("price").toString();
+
         // Get the price, and add with qty
-        String  description = (String)  product.get("description");
-        Double  price       = (Double)  product.get("price");
-        Integer qty         = (Integer) product.get("qty");
+        String  description = (String)  tmpDescription;
+        //Integer store_qty   = (Integer) Integer.parseInt(tmpStoreQty);
+        Integer case1       = (Integer) Integer.parseInt(tmpCase);
+        String  uom         = (String)  tmpUOM;
+        Double  price       = (Double)  Double.parseDouble(tmpPrice);
 
         // Return product to requester
         return product;
